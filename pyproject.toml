@@ -29,7 +29,13 @@ classifiers = [
   "Programming Language :: Python",
   "Topic :: Software Development :: Libraries :: Python Modules"
 ]
-dependencies = ["coloredlogs ~= 15.0", "pyyaml ~= 6.0"]
+dependencies = [
+  "coloredlogs ~= 15.0",
+  "ga4gh.cat_vrs~=0.7.1",
+  "ga4gh.va_spec~=0.4.2",
+  "ga4gh.vrs==2.1.3",
+  "pyyaml ~= 6.0"
+]
 description = "biocommons.example package (namespaced)"
 dynamic = ["version"]
 license = "Apache-2.0"
