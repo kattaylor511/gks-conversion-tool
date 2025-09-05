@@ -91,6 +91,13 @@ def createVAR520AminoAcidChange(variant_identifier: str, protein_change_value: s
     return createCWEOBXSegmentGroup(segment, variant_identifier, VARConcepts.VARCONCEPT520)
 
 
+def createVAR521MolecularConsequence(variant_identifier: str, molecular_consequence: str) -> OBXSegmentGroup:
+    segment = OBXSegmentCWE(
+        label=molecular_consequence
+    )
+    return createCWEOBXSegmentGroup(segment, variant_identifier, VARConcepts.VARCONCEPT521)
+
+
 def createVAR522ProteinReferenceSequence(variant_identifier: str, protein_transcript_value: str) -> OBXSegmentGroup:
     segment = OBXSegmentST(
         value=protein_transcript_value
