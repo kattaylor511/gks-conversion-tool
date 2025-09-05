@@ -6,7 +6,26 @@ carat_separator: str = "^"
 
 period_separator: str = "."
 
-def generate_obx_segments(segment_group: OBXSegmentGroup) -> list[str]:
+
+def print_obx_segments(segment_groups: list[OBXSegmentGroup]):
+    '''Function to print all OBX segments'''
+    for segment in generate_all_obx_for_variants(segment_groups=segment_groups):
+        print(segment)
+
+
+def generate_all_obx_for_variants(segment_groups: list[OBXSegmentGroup]) -> list[str]:
+    '''Generates all the OBX segments for a variant given a list of segment groups'''
+    all_segments: list[str] = []
+
+    current_line_number = 1
+    for segment_group in segment_groups:
+        all_segments += generate_obx_segments(segment_group=segment_group, current_line_number=current_line_number)
+        current_line_number += len(segment_group.segments)
+    
+    return all_segments
+
+
+def generate_obx_segments(segment_group: OBXSegmentGroup, current_line_number: int) -> list[str]:
     '''Generates an OBX segment for each member of the OBXSegmentGroup'''
     segment_array: list[str] = [""] * 22
     all_final_segments: list[str] = []
@@ -15,21 +34,22 @@ def generate_obx_segments(segment_group: OBXSegmentGroup) -> list[str]:
     segment_array[0] = segment_group.segment_type
 
     # Whether this is a string, codeable concept, etc.
-    segment_array[2] = segment_group.observation_type
+    segment_array[2] = str(segment_group.observation_type.value)
 
     # Name and code of concept
     segment_array[3] = generate_obx3(segment_group=segment_group)
 
     for segment_line in segment_group.segments:
-        all_final_segments.append(generate_obx_segment(segment_group=segment_group, segment_line=segment_line, segment_array=segment_array))
+        all_final_segments.append(generate_obx_segment(segment_group=segment_group, segment_line=segment_line, segment_array=segment_array, line_number=current_line_number))
+        current_line_number += 1
 
     return all_final_segments
 
 
-def generate_obx_segment(segment_group: OBXSegmentGroup, segment_line: OBXSegmentBase, segment_array: list[str]) -> str:
+def generate_obx_segment(segment_group: OBXSegmentGroup, segment_line: OBXSegmentBase, segment_array: list[str], line_number: int) -> str:
     '''Generates a single OBX segment for one member of the OBXSegmentGroup'''
     # Line number
-    segment_array[1] = str(segment_line.line_number)
+    segment_array[1] = str(line_number)
 
     # Variant identifier
     segment_array[4] = generate_obx4(segment_group=segment_group, segment=segment_line)
@@ -42,7 +62,7 @@ def generate_obx_segment(segment_group: OBXSegmentGroup, segment_line: OBXSegmen
 
 def generate_obx3(segment_group: OBXSegmentGroup) -> str:
     '''Generates the OBX-3 value which details the VAR concept and its name'''
-    return segment_group.segment_identifier + carat_separator + segment_group.segment_name + carat_separator + segment_group.segment_identifier_system
+    return str(segment_group.segment_identifier.name) + carat_separator + str(segment_group.segment_identifier.value) + carat_separator + segment_group.segment_identifier_system
 
 
 def generate_obx4(segment_group: OBXSegmentGroup, segment: OBXSegmentBase) -> str:
