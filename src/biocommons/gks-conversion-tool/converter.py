@@ -83,6 +83,60 @@ def convert_gks_to_hl7_v2(statement: Statement) -> dict[str, Any]:
     # 511 - Allele start/end
     allele_start, allele_end = _get_location_interval(genomic_location)
 
+    # 513 - DNA Region
+
+    # 514 - Gene Studied
+
+    # 516 - Transcript Reference Sequence ID
+
+    # 518 - DNA Change
+
+    # 520 - Amino Acid Change
+
+    # 521 - Molecular Consequence
+
+    # 522 - Protein Reference Sequence
+
+    # 524 - Genomic Reference Sequence ID
+
+    # 526 - Reference Allele
+
+    # 527 - Observed Allele
+
+    # 528 - Genomic DNA Change
+
+    # 532 - Cytogenetic Location
+
+    # 534 - Penetrance
+
+    # 535 - Genetic Variant Source
+
+    # 545 - Allele Length
+
+    # 546 - Structural Inner Start/End
+
+    # 547 - Structural Outer Start/End
+
+    # 550 - Copy Number
+
+    # 553 - Variant Classification
+
+    # 554 - Interpretation
+
+    # 560 - Mode of Inheritance
+
+    # 561 - Functional Effect
+
+    # 564 - Repeat Nucleotides
+
+    # 565 - Repeat Number
+
+    # 572 - Affected Exon Start/End
+
+    # 573 - Affected Intron Start/End
+
+    # 575 - Interpretation Note
+
     result: dict[str, Any] = {}
     result[HL7V2["VARIANT_NAME"]] = variant_name
     result[HL7V2["CHROMOSOME"]] = chromosome
