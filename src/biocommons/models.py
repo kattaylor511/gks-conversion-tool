@@ -7,7 +7,7 @@ class OBXSegmentBase(BaseModel):
       
     line_number: int                                     # OBX-2
 
-    variant_identifier_line: str                         # OBX-5  
+    variant_identifier_line: str | None = None           # OBX-5  
 
 
 class OBXSegmentST(OBXSegmentBase):
@@ -23,11 +23,11 @@ class OBXSegmentCWE(OBXSegmentBase):
 
     observation_type: str = "CWE"
 
-    code: str 
+    code: str | None = None
 
-    coding_system: str
+    coding_system: str | None = None
 
-    label: str
+    label: str | None = None
 
 
 class OBXSegmentNM(OBXSegmentBase): 
@@ -61,8 +61,8 @@ class OBXSegmentGroup(BaseModel):
 
     variant_identifier: str                              # OBX-5
 
-    segment_identifier: str                              # OBX-3.1
+    segment_identifier: str                              # OBX-4.1
 
-    segment_name: str                                    # OBX 3.2
+    segment_name: str                                    # OBX 4.2
 
-    segment_identifier_system: str                       # OBX 3.3
+    segment_identifier_system: str                       # OBX 4.3
